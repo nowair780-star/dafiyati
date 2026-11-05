@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>دافعيتي سرّ تميّزي</title>
+<style>
+:root{--ink:#26344a;--purple:#7663a8;--pink:#f3a9bd;--mint:#bfe5d8;--cream:#fffaf2;--gold:#f4c96b}
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:linear-gradient(135deg,#fff8ef,#f6efff);color:var(--ink);line-height:1.8}
+header{padding:34px 18px 28px;text-align:center;background:linear-gradient(120deg,#e9ddfb,#ffe4eb);border-radius:0 0 34px 34px}
+h1{font-size:clamp(2rem,6vw,3.2rem);margin:8px 0;color:#5e4c91}header p{margin:5px auto;max-width:700px}
+.school{font-size:.9rem;color:#655b78}.wrap{max-width:1000px;margin:auto;padding:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.card{background:#fff;border:1px solid #eee4f5;border-radius:22px;padding:20px;box-shadow:0 8px 24px #49336b10}
+h2{color:#65528f;margin-top:0;font-size:1.35rem}.emoji{font-size:2rem}
+button{border:0;border-radius:14px;background:var(--purple);color:white;padding:11px 18px;font:inherit;cursor:pointer;margin:5px}
+button:hover{filter:brightness(.95)}button.secondary{background:#e9e2f5;color:#514477}
+input{width:100%;padding:12px;border:1px solid #ddd1eb;border-radius:12px;font:inherit;margin:8px 0}
+.choice{display:block;width:100%;text-align:right;background:#f3effa;color:#3d3554}
+.choice:hover{background:#e9ddfb}
+.notice{background:#fff5d9;border-radius:14px;padding:12px}
+#stars{font-size:1.2rem;color:#9a6b00;font-weight:bold}
+footer{text-align:center;padding:26px;color:#71677f;font-size:.9rem}
+#certificate{display:none;text-align:center;border:5px double #b99bda;padding:28px;border-radius:20px;background:#fff}
+@media print{body *{visibility:hidden}#certificate,#certificate *{visibility:visible}#certificate{display:block!important;position:absolute;inset:20px}}
+</style>
+</head>
+<body>
+<header>
+<div class="school">المملكة العربية السعودية · وزارة التعليم</div>
+<div class="emoji">🌷 ⭐ 🎯</div>
+<h1>دافعيتي سرّ تميّزي</h1>
+<p><b>أتعلم بحب، وأجتهد بثقة، وأصل إلى هدفي خطوةً خطوة</b></p>
+<div class="school">الابتدائية الأولى بالحاير وبتق ٢٥</div>
+</header>
+<main class="wrap">
+<section class="card" style="text-align:center;margin-bottom:18px">
+<h2>أهلًا بكِ يا بطلة! 💜</h2>
+<p>هذا ركنكِ لاكتشاف قدراتكِ، وتحديد أهدافكِ، وتجربة تحديات صغيرة تساعدكِ على حب التعلم والمثابرة.</p>
+<div id="stars">نجومي: ⭐ 0</div>
+</section>
+<div class="grid">
+<section class="card">
+<div class="emoji">🌟</div><h2>1. اكتشفي قوتكِ</h2>
+<p>اختاري العبارة التي تصفكِ اليوم:</p>
+<button class="choice" onclick="award('أنا أتعلم بسرعة عندما أحاول')">أنا أتعلم عندما أحاول</button>
+<button class="choice" onclick="award('أستطيع أن أتحسن بالتدريب')">أستطيع التحسن بالتدريب</button>
+<button class="choice" onclick="award('لا أستسلم إذا أخطأت')">لا أستسلم إذا أخطأت</button>
+</section>
+<section class="card">
+<div class="emoji">🎯</div><h2>2. هدفي هذا الأسبوع</h2>
+<p>اكتبي هدفًا دراسيًا صغيرًا تريدين تحقيقه:</p>
+<input id="goal" placeholder="مثال: أقرأ عشر دقائق يوميًا">
+<button onclick="saveGoal()">احفظي هدفي</button>
+<p id="goalMsg"></p>
+</section>
+<section class="card">
+<div class="emoji">🧠</div><h2>3. تحدي التفكير الإيجابي</h2>
+<p><b>إذا واجهتِ سؤالًا صعبًا، ماذا تفعلين؟</b></p>
+<button class="choice" onclick="answer(false)">أتركه ولا أحاول</button>
+<button class="choice" onclick="answer(true)">أحاول مرة أخرى وأطلب المساعدة</button>
+<button class="choice" onclick="answer(false)">أقول إنني لا أستطيع</button>
+<p id="answerMsg" aria-live="polite"></p>
+</section>
+<section class="card">
+<div class="emoji">🌱</div><h2>4. تحدي اليوم</h2>
+<p>اختاري تحديًا واعمليه اليوم:</p>
+<button class="choice" onclick="award('أنجزت واجبي في وقته')">أنجز واجبي في وقته</button>
+<button class="choice" onclick="award('شاركت بإجابة في الصف')">أشارك بإجابة في الصف</button>
+<button class="choice" onclick="award('أقرأ شيئًا جديدًا')">أقرأ شيئًا جديدًا</button>
+</section>
+<section class="card">
+<div class="emoji">💗</div><h2>5. رسالة لنفسي</h2>
+<p class="notice" id="quote">أنا قادرة على التعلم، وكل محاولة تقرّبني من النجاح.</p>
+<button class="secondary" onclick="newQuote()">رسالة أخرى</button>
+</section>
+<section class="card">
+<div class="emoji">🏅</div><h2>6. شهادة الإنجاز</h2>
+<p>اجمعي ثلاث نجوم على الأقل، ثم اكتبي اسمكِ لإصدار شهادة تقدير.</p>
+<input id="student" placeholder="اسم الطالبة">
+<button onclick="certificate()">أصدري شهادتي</button>
+<p id="certMsg"></p>
+</section>
+</div>
+<section id="certificate" class="card" style="margin-top:20px">
+<div class="emoji">🏆🌷</div>
+<h1>شهادة إنجاز</h1>
+<h2>دافعيتي سرّ تميّزي</h2>
+<p>تُمنح للطالبة المبدعة:</p>
+<h2 id="studentName"></h2>
+<p>لإكمالها التحديات التحفيزية وإظهار روح المثابرة وحب التعلم.</p>
+<p>مع تمنياتنا لها بمزيد من النجاح والتميّز</p>
+<p>الموجهة الطلابية: نوير السبيعي</p>
+<p>مديرة المدرسة: سارة القحطاني</p>
+<button onclick="window.print()">طباعة الشهادة</button>
+</section>
+<section class="card" style="margin-top:18px">
+<h2>💌 تذكّري دائمًا</h2>
+<p>النجاح لا يعني أن أكون الأفضل دائمًا، بل أن أبذل جهدي وأتقدم كل يوم. الخطأ فرصة للتعلم، والمحاولة بداية الإنجاز.</p>
+</section>
+</main>
+<footer>إعداد التوجيه الطلابي · الموجهة الطلابية نوير السبيعي</footer>
+<script>
+let stars=0;
+function update(){document.getElementById('stars').textContent='نجومي: ⭐ '+stars}
+function award(msg){stars++;update();alert('أحسنتِ! '+msg+' 🌟 حصلتِ على نجمة.')}
+function saveGoal(){let v=document.getElementById('goal').value.trim();document.getElementById('goalMsg').textContent=v?'هدف رائع! تذكري متابعته كل يوم 💜':'اكتبي هدفك أولًا.';if(v)award('حددت هدفي لهذا الأسبوع')}
+function answer(ok){let el=document.getElementById('answerMsg');if(ok){el.textContent='إجابة رائعة! طلب المساعدة والمحاولة من علامات القوة. 🌟';award('اخترتِ التصرف الصحيح')}else{el.textContent='حاولي مرة أخرى؛ أنتِ قادرة على التفكير بإيجابية.'}}
+const quotes=['كل خطوة صغيرة تقرّبني من هدفي.','أنا أستطيع، وسأحاول مرة بعد مرة.','جهدي اليوم يصنع نجاحي غدًا.','لا أقارن نفسي بغيري؛ أنا أتقدم بطريقتي.'];
+function newQuote(){document.getElementById('quote').textContent=quotes[Math.floor(Math.random()*quotes.length)]}
+function certificate(){let n=document.getElementById('student').value.trim();let m=document.getElementById('certMsg');if(stars<3){m.textContent='اجمعي ثلاث نجوم أولًا، فأنتِ قريبة من الإنجاز!';return}if(!n){m.textContent='اكتبي اسمكِ أولًا.';return}document.getElementById('studentName').textContent=n;document.getElementById('certificate').style.display='block';document.getElementById('certificate').scrollIntoView({behavior:'smooth'})}
+</script>
+</body>
+</html>
